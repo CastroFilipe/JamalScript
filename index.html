@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <title>Hello World!</title>
+  <title>JDE</title>
 </head>
 
 <body>
@@ -26,25 +26,53 @@
 
         <label for="exampleFormControlTextarea1">Código</label>
 
-        <textarea id="exampleFormControlTextarea1" class="form-control" style="resize: none; height: 200px;" ></textarea>
+        <textarea id="text-code" class="form-control" style="resize: none; height: 200px;"></textarea>
 
       </div>
 
       <div class="form-group col">
 
-        <fieldset disabled>
+        <fieldset>
 
           <label for="exampleFormControlTextarea1">Console</label>
 
-          <input class="form-control" id="exampleFormControlTextarea1 " style="background-color: white; resize: none" rows="3"></textarea>
-
+          <textarea type="text" class="form-control" id="text-console" style="background-color: white; resize: none; height:300px;" rows="3"></textarea>
+        
         </fieldset>
-      
+
       </div>
 
     </form>
 
   </div>
 
+  <button type="submit" id="execute-btn" class="btn btn-primary btn-lg btn-outline-secondary">Testar</button>
+
+  <script>
+    const electron = require('electron');
+
+    const { ipcRenderer } = electron;
+
+    function getText( obj ) {
+        return obj.textContent ? obj.textContent : obj.innerText;
+    }
+
+    const form = document.querySelector('#execute-btn');
+    form.addEventListener('click', submitForm);
+
+    function submitForm(e) {
+      e.preventDefault();
+      const input = document.querySelector('#text-code').value;
+      ipcRenderer.send('input:add', input);
+    }
+
+    const ul = document.querySelector('#text-console');
+
+    ipcRenderer.on('input:add', function (e, item) {
+      const itemText = document.createTextNode(item)
+      ul.value = getText(itemText)
+    })
+
+  </script>
 
 </html>

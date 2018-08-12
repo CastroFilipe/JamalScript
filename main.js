@@ -1,6 +1,8 @@
 const electron = require('electron')
 
-const{app, BrowserWindow} = require('electron')
+const{app, BrowserWindow, ipcMain} = electron
+
+let win;
 
 function createWindow (){
 
@@ -12,6 +14,9 @@ function createWindow (){
 
 }
 
-app.on('ready', createWindow)
 
-  
+ipcMain.on('input:add', function(e, input){
+        win.webContents.send('input:add', input);
+})
+
+app.on('ready', createWindow)
