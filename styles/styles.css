@@ -1,0 +1,18 @@
+.campo {
+    resize: none; 
+    height: 200px;
+}
+
+.form-control.code {
+    resize: none; 
+    height: 300px; 
+    background-color: darkslategrey; 
+    color: white;
+}
+
+.form-control.console {
+    resize: none; 
+    height: 300px; 
+    background-color: black; 
+    color: white;
+}
