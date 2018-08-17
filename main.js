@@ -4,10 +4,16 @@ const{app, BrowserWindow, ipcMain} = electron
 
 let win;
 
-var linguagem = new Array("String", "int");
+var linguagem = new Array("if", "else", "for", "while");
+var tipos = new Array("int", "float", "string", "boolean")
+var operadoresAritmeticos = new Array("+", "-", "/", "*", "=")
+var operadoresLogicos = new Array("&&", "||", ">=", ">", "<=", "<", "==", "!=")
+var separadores = new Array("(", "{", "\"", ")", "}", ",", ".")
+//if [condicao]+([operador]+condicao+)* {(algo)*} else {}
 var codigo;
 var frases = new  Array();
 var palavra = new Array();
+var teste;
 
 function createWindow (){
 
@@ -20,27 +26,38 @@ function createWindow (){
 }
 
 
-ipcMain.on('input:add', function(e, input){
-       codigo = input
-       validateLanguage();
+ipcMain.on('input:add', function(e, input){   
+        teste = new Array()
+        palavra.length = 0
+        if(!input){
+                win.webContents.send('input:add', "Não foi digitado código")
+                return
+        }
+        codigo = input.toLowerCase();
+        construirCodigo();
+        win.webContents.send('input:add', teste)
 })
 
 app.on('ready', createWindow)
 
-function validateLanguage(){
-
-        var teste
-        if (codigo.indexOf(";")) {
-                frases = codigo.split(";")
-                frases = frases.filter(String)
-
-                // frases.forEach(frase => {
-                //         palavra = frase.split(" ")
-                // });
-                for (var i = 0; i < frases.length; i++) {
-                        palavra[i] = frases[i].split(" ").filter(String)
-                }
-        }
+function construirCodigo(){
         
-         win.webContents.send('input:add', palavra);
+        frases = codigo.split("\n")                       
+        frases = frases.filter(String)
+        for (i = 0; i < frases.length; i++) {
+               palavra[i] = frases[i].split(" ").filter(String)
+               validarLinguagem(palavra[i]);
+        }
+                
+        
+}
+
+function validarLinguagem(codigo_separado){
+       
+        if(linguagem.includes("" + codigo_separado)){
+                teste.push(codigo_separado)
+        } else {
+                teste.push("erro")
+        }
+
 }
