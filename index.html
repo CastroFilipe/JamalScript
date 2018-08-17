@@ -4,49 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
   <title>JDE</title>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-light bg-light" style="height: 100px;">
-
+  <nav class="navbar navbar-light bg-dark" style="height: 100px;">
     <a class="navbar-brand" href="#" style="margin-left: 3%;">
-
-      <img src="images/Boostrap_logo.svg" width="30" height="30" class="d-inline-block align-top" alt="" style="margin-right: 8px;"> Jamal Script
-
+      <img src="images/javascript-logo.png" width="90" height="50" class="d-inline-block align-top" alt="" style="margin-right: 8px;">
+      <span style="color: white">Jamal Script</span>
     </a>
-
   </nav>
 
-  <div class="container">
-
+  <article class="container">
     <form class="row" style="margin-top: 10px">
       <div class="form-group col">
-
         <label for="exampleFormControlTextarea1">Código</label>
-
         <textarea id="text-code" class="form-control" style="resize: none; height: 200px;"></textarea>
-
       </div>
 
       <div class="form-group col">
-
         <fieldset>
-
           <label for="exampleFormControlTextarea1">Console</label>
-
-          <textarea type="text" class="form-control" id="text-console" style="background-color: white; resize: none; height:300px;" rows="3"></textarea>
-        
+          <textarea type="text" class="form-control" id="text-console" style="background-color: white; resize: none; height:300px;"></textarea>
         </fieldset>
-
       </div>
-
     </form>
+  </article>
 
+  <div class="container">
+      <button type="submit" id="execute-btn" class="btn btn-primary btn-lg btn-outline-info">
+        Testar
+      </button>
   </div>
-
-  <button type="submit" id="execute-btn" class="btn btn-primary btn-lg btn-outline-secondary">Testar</button>
 
   <script>
     const electron = require('electron');
