@@ -4,7 +4,12 @@ const{app, BrowserWindow, ipcMain} = electron
 
 let win;
 
-var linguagem = new Array("string", "int");
+var linguagem = new Array("if", "else", "for", "while");
+var tipos = new Array("int", "float", "string", "boolean")
+var operadoresAritmeticos = new Array("+", "-", "/", "*", "=")
+var operadoresLogicos = new Array("&&", "||", ">=", ">", "<=", "<", "==", "!=")
+var separadores = new Array("(", "{", "\"", ")", "}", ",", ".")
+//if [condicao]+([operador]+condicao+)* {(algo)*} else {}
 var codigo;
 var frases = new  Array();
 var palavra = new Array();
@@ -36,17 +41,15 @@ ipcMain.on('input:add', function(e, input){
 app.on('ready', createWindow)
 
 function construirCodigo(){
-        if (codigo.includes("\n")) {
-                frases = codigo.split("\n")                       
-                frases = frases.filter(String)
-                for (i = 0; i < frases.length; i++) {
-                       palavra[i] = frases[i].split(" ").filter(String)
-                       validarLinguagem(palavra[i]);
-                }
-                
-        } else {
-                win.webContents.send('input:add', "Falta ;")
+        
+        frases = codigo.split("\n")                       
+        frases = frases.filter(String)
+        for (i = 0; i < frases.length; i++) {
+               palavra[i] = frases[i].split(" ").filter(String)
+               validarLinguagem(palavra[i]);
         }
+                
+        
 }
 
 function validarLinguagem(codigo_separado){
