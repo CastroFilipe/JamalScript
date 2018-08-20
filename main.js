@@ -1,18 +1,12 @@
 const electron = require('electron')
-
+const lexer = require('./lexer.js')
 
 const{app, BrowserWindow, ipcMain} = electron
 
 let win;
 
-var linguagem = new Array("if", "else", "for", "while");
-var tipos = new Array("int", "float", "string", "boolean")
-var operadoresAritmeticos = new Array("+", "-", "/", "*", "=")
-var operadoresLogicos = new Array("&&", "||", ">=", ">", "<=", "<", "==", "!=")
-var separadores = new Array("(", "{", "\"", ")", "}", ",", ".")
 //if [condicao]+([operador]+condicao+)* {(algo)*} else {}
 var codigo;
-var frases = new  Array();
 var palavra = new Array();
 var teste;
 
@@ -37,7 +31,7 @@ ipcMain.on('input:add', function(e, input){
 	codigo = input.toLowerCase();
 	// construirCodigo();
 
-	var lexer = require('./lexer.js')
+	
 
 	if (lexer){
 		teste.push(JSON.stringify(lexer.lex(codigo)))
@@ -49,31 +43,24 @@ ipcMain.on('input:add', function(e, input){
 
 app.on('ready', createWindow)
 
-function construirCodigo(){
+// function construirCodigo(){
 
-	frases = codigo.split("\n")                       
-	frases = frases.filter(String)
-	for (i = 0; i < frases.length; i++) {
-		palavra[i] = frases[i].split(" ").filter(String)
-		if(tipos.includes("" + palavra[i][0])){
-			logicaVariavel(frases[i])
-		}
-	}    
-}
-
-
-
-
+// 	frases = codigo.split("\n")                       
+// 	frases = frases.filter(String)
+// 	for (i = 0; i < frases.length; i++) {
+// 		palavra[i] = frases[i].split(" ").filter(String)
+// 		if(tipos.includes("" + palavra[i][0])){
+// 			logicaVariavel(frases[i])
+// 		}
+// 	}    
+// }
 // function validarLinguagem(codigo_separado){
-	
 // 	if(tipos.includes("" + codigo_separado)){
 // 		teste.push(codigo_separado)
 // 	} else {
 // 		return "erro";
 // 	}
-	
 // }
-
 // function logicaVariavel(linha){
 // 	validar = linha.split(" ")
 // 	if(validar[0] == "int"){
