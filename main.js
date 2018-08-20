@@ -1,5 +1,6 @@
 const electron = require('electron')
 
+
 const{app, BrowserWindow, ipcMain} = electron
 
 let win;
@@ -34,7 +35,15 @@ ipcMain.on('input:add', function(e, input){
 		return
 	}
 	codigo = input.toLowerCase();
-	construirCodigo();
+	// construirCodigo();
+
+	var lexer = require('./lexer.js')
+
+	if (lexer){
+		teste.push(JSON.stringify(lexer.lex(codigo)))
+	} else teste.push("ene")
+	
+
 	win.webContents.send('input:add', teste)
 })
 
@@ -52,6 +61,9 @@ function construirCodigo(){
 	}    
 }
 
+
+
+
 // function validarLinguagem(codigo_separado){
 	
 // 	if(tipos.includes("" + codigo_separado)){
@@ -62,13 +74,13 @@ function construirCodigo(){
 	
 // }
 
-function logicaVariavel(linha){
-	validar = linha.split(" ")
-	if(validar[0] == "int"){
-		if(!validar[1]){
-			teste.push("Erro: Variavel sem nome")
-		} else {
-			teste.push("Variavel com nome")
-		}
-	}
-}
+// function logicaVariavel(linha){
+// 	validar = linha.split(" ")
+// 	if(validar[0] == "int"){
+// 		if(!validar[1]){
+// 			teste.push("Erro: Variavel sem nome")
+// 		} else {
+// 			teste.push("Variavel com nome")
+// 		}
+// 	}
+// }
