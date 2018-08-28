@@ -18,9 +18,9 @@ module.exports = {
         var isWhiteSpace = function(c){
             return /[\s]/.test(c)
         }
-    
-        var isIdentifier = function(c){
-            return typeof c == "string" && !isOperator(c) && isWhiteSpace(c) && isDigit(c)
+
+        var isString = function(c){
+            return typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c)
         }
 
         var advance = function () { 
@@ -60,17 +60,21 @@ module.exports = {
                 num = parseFloat(num)
                 if (!isFinite(num)) throw "Number is too large or too small for a 64-bit double."
                 addToken("number", num)
-            } else if (isIdentifier(c)) {
+            } else if (isString(c)) {
                 var idn = c
 
-                while (isIdentifier(advance())){ 
+                while (isString(advance())){ 
                     idn += c
                 }
 
-                addToken("identifier", idn)
-            } else throw "Unrecognized token."
-            
+                if(/([int][string][if][else][bool])/.test(idn)){
+                    addToken("keyword", idn)
+                } else {
+                    addToken("identifier", idn)
+                }               
 
+            } else throw "Unrecognized token."
+        
         }
         
         addToken("(end)")   

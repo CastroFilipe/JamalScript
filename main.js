@@ -31,8 +31,6 @@ ipcMain.on('input:add', function(e, input){
 	codigo = input.toLowerCase();
 	// construirCodigo();
 
-	
-
 	if (lexer){
 		teste.push(JSON.stringify(lexer.lex(codigo)))
 	} else teste.push("ene")
