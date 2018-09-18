@@ -5,41 +5,37 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="styles/custom.css">
   <title>JDE</title>
 </head>
 
 <body class="fundo">
 
   <nav class="navbar" style="height: 100px;">
-    <a class="navbar-brand" href="#" style="margin-left: 3%;">
-      <img src="images/logo.png" class="center">
+    <a class="navbar-brand" href="#" style="margin-left: 7%;">
+      <img src="images/logo.png">
     </a>
   </nav>
 
   <article class="container">
     <form class="row" style="margin-top: 10px">
       <div class="form-group col">
-        <label for="exampleFormControlTextarea1" style="color: white">Código</label>
-            
-        <div><textarea id="text-code" class="form-control code"></textarea></div>
-        
+          <img src="./images/texto_codigo.png" alt="">
+        <div id="frame-campos"><textarea id="text-code" class="form-control code font-custom"></textarea></div>
       </div>
 
       <div class="form-group col">
         <fieldset disabled>
-          <label for="exampleFormControlTextarea1" style="color: white">Console</label>
-          <textarea type="text" class="form-control console" id="text-console">></textarea>
+            <img src="./images/texto_console.png" alt="">
+          <div id="frame-campos2"><textarea type="text" class="form-control console font-custom" id="text-console">>_</textarea></div>
         </fieldset>
+      </div>
+
+      <div class="container" style="padding-bottom: 30px;">
+          <img src="./images/botao.png" alt="" id="execute-btn" class="botao">
       </div>
     </form>
   </article>
-
-  <div class="container">
-      <button type="submit" id="execute-btn" class="btn btn-primary btn-lg btn-outline-info">
-        Testar
-      </button>
-  </div>
 
   <script>
     const electron = require('electron');

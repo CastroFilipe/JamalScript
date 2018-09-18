@@ -1,0 +1,48 @@
+.form-control.code {
+    resize: none; 
+    height: 300px;
+    background-color: grey;
+    opacity: 0.8;
+    color: black;
+    border: 0px solid transparent;
+}
+
+.form-control.console {
+    resize: none;
+    height: 300px;
+    background-color: black;
+    color: white;
+    border: 0px solid transparent;
+}
+
+.fundo {
+    background-image: url('../images/fundo.png');
+    background-size: 1560px;
+}
+
+.botao {
+    cursor: pointer;
+    height: 60px;
+    width: 100px;
+}
+
+@font-face {
+    font-family: 'hightech-font';
+    src: url('../fonts/nasalization-rg.ttf');
+}
+
+.font-custom {
+    font-family: 'hightech-font';
+}
+
+#frame-campos {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 18px;
+    border-image: url('../images/frame_transparente.png') 35 round;
+}
+
+#frame-campos2 {
+    border: 18px solid transparent;
+    border-image: url('../images/frame_transparente.png') 35 round;
+}
