@@ -17,3 +17,18 @@
     color: white;
     outline: 5px solid white;
 }
+
+.fundo {
+    background-image: url('../images/fundo.png');
+    background-size: 1560px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fundo-botao {
+    background: url('/images/botao.png');
+}
