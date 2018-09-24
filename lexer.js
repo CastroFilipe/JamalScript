@@ -84,7 +84,7 @@ module.exports = {
                     }
                 }
 
-                if(idn == "int"){
+                if(idn == "int"){ 
                     addToken("integer", idn)
                 } else if(idn == "string"){
                     addToken("string", idn)
