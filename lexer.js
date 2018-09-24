@@ -40,9 +40,21 @@ module.exports = {
             if (isWhiteSpace(c)){
                 advance()
             } else if (isOperator(c)) {
-                addToken(c)
-                advance()
-            } else if (isDigit(c)) {
+                if(c == "+"){ 
+                    addToken("mais",c)
+                    advance()
+                } else if(c == "-"){ 
+                    addToken("menos",c)
+                    advance()
+                } else if(c == "*"){ 
+                    addToken("vezes",c)
+                    advance()
+                } else if(c == "/"){ 
+                    addToken("divisao",c)
+                    advance()
+                }
+                
+            }  else if (isDigit(c)) {
                 var num = c
 
                 while (isDigit(advance())){
@@ -60,18 +72,29 @@ module.exports = {
                 num = parseFloat(num)
                 if (!isFinite(num)) throw "Number is too large or too small for a 64-bit double."
                 addToken("number", num)
+
             } else if (isString(c)) {
                 var idn = c
 
-                while (isString(advance())){ 
+                while (!isWhiteSpace(advance()) || !isOperator(advance())){
                     idn += c
+                    if(input.substring(input.length -1) == c){
+                        c == " "
+                        break;
+                    }
                 }
 
-                if(/([int][string][if][else][bool])/.test(idn)){
-                    addToken("keyword", idn)
+                if(idn == "int"){
+                    addToken("integer", idn)
+                } else if(idn == "string"){
+                    addToken("string", idn)
+                } else if(idn == "float"){
+                    addToken("float", idn)
+                } else if(idn == "bool"){
+                    addToken("bool", idn)
                 } else {
                     addToken("identifier", idn)
-                }               
+                }
 
             } else throw "Unrecognized token."
         
