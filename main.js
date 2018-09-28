@@ -13,7 +13,7 @@ var teste;
 function createWindow (){
 	
 	//Cria a janela
-	win = new BrowserWindow({width: 800, height: 600})
+	win = new BrowserWindow({width: 1280, height: 720})
 	
 	//Carrega a pagina
 	win.loadFile('index.html')

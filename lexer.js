@@ -8,43 +8,29 @@ module.exports = {
         var i = 0
 
         var isOperator = function(c){
-            return /[+\-*\/\^%=()<>,!]/.test(c)
+            return /[+-*\/\^%=()<>,.!{}]/.test(c)
         }
     
         var isDigit = function(c){
             return /[0-9]/.test(c)
         }
     
-        var isPontoV = function(c){
-            return /;/.test(c)
-        }
-
         var isWhiteSpace = function(c){
             return /[\s]/.test(c)
         }
 
         var isString = function(c){
-            return typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c) && !isPontoV(c)
+            return typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c) 
         }
 
         var advance = function () { 
             return c = input[++i] 
         }
 
-        var getUndefined = function (c){
-            idn = c
-            operador: do{
-                advance()
-                if(c === undefined || isWhiteSpace(c)){
-                    break operador
-                }
-                idn += c  
-            }while (!isWhiteSpace(c)) 
-
-            return idn
-        }
-
         var addToken = function (type, value) {
+            if(value == ""){
+                return
+            }
             tokens.push({
                 type: type,
                 value: value
@@ -94,6 +80,30 @@ module.exports = {
                 } else if(idn == "--"){ 
                     addToken("subtrair1",idn)
                     advance()
+                } else if(idn == "<"){ 
+                    addToken("menor",idn)
+                    advance()
+                } else if(idn == ">"){ 
+                    addToken("maior",idn)
+                    advance()
+                } else if(idn == "<="){ 
+                    addToken("menor_igual",idn)
+                    advance()
+                } else if(idn == ">="){ 
+                    addToken("maior_igual",idn)
+                    advance()
+                } else if(idn == "("){ 
+                    addToken("abre_parent",idn)
+                    advance()
+                } else if(idn == ")"){ 
+                    addToken("fecha_parent",idn)
+                    advance()
+                } else if(idn == "{"){ 
+                    addToken("abre_chave",idn)
+                    advance()
+                } else if(idn == "}"){ 
+                    addToken("fecha_chave",idn)
+                    advance()
                 } else {
                     advance()
                 }
@@ -129,8 +139,8 @@ module.exports = {
 
                 if(idn == "int"){ 
                     addToken("integer", idn)
-                } else if(idn == "string"){
-                    addToken("string", idn)
+                } else if(idn == "jamastring"){
+                    addToken("jamastring", idn)
                 } else if(idn == "float"){
                     addToken("float", idn)
                 } else if(idn == "bool"){
@@ -159,6 +169,9 @@ module.exports = {
                     addToken("fechar", idn)
                 } else if(idn == "pause"){
                     addToken("pausar", idn)
+                } else if(idn.charAt(0) == "\""){
+                    idn = idn.replace(/"/g, "")
+                    addToken("jamastring_text", idn)
                 } else {
                     addToken("identifier", idn)
                 }
