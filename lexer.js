@@ -4,23 +4,23 @@ module.exports = {
     
     lex : function (inputString){
 
-        /*as duas linhas abaixo removem todos os espacos em branco contidos na 
+        /* As duas linhas abaixo removem todos os espacos em branco contidos na 
          * string inputString.
-         * Ex. 
+         * Ex: 
          * inputString = ' a     casa é b onita '
          * ao final, teremos em arrayPalavras : ['a', 'casa', 'é', 'b', 'onita']
          * um array livre de espaços e apenas com as palavras
-         * assim, a comparação isWhitSpace será desnecessária
+         * assim, a comparação isWhitSpace() e o advanced() serão desnecessários
          */
         const arrayAux = inputString.split(/\s+/g);
         const arrayPalavras = arrayAux.filter(word => word.length > 0);
         //console.log(arrayPalavras);//teste
         
-        var tokens = []
-        var c
-        var i = 0
+        let tokens = []
+        let c
+        let i = 0
 
-        //função que retorna true se c for um operador //Falta consertar a Expressão regular
+        //função que retorna true se c for um operador //Falta adicionar alguns simbolos ao array tokens
         const isOperator = c => /[-+*\/^%=()<>,.!{}]/.test(c);
     
         //função que retorna true se c for um digito de 0 a 9
@@ -32,9 +32,12 @@ module.exports = {
         //função que retorna algum caralho(vou analisar melhor)
         const isString = c => typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c); 
 
+        //funcao advanced. Quero remover essa funcao pois usaremos alguma funcao presente em Array para percorrer.
         const advance = () => c = inputString[++i]; 
 
         const addToken = function (type, value) {
+            //esse if vai sair quando usarmos o arrayPalavras pois não exixtirá a..
+            //..possibilidade do array palavras conter alguma string vazia.
             if(value == ""){
                 return
             }
@@ -47,8 +50,8 @@ module.exports = {
         while (i < inputString.length) {
             c = inputString[i];
 
-            if (isWhiteSpace(c)){
-                advance()
+            if (isWhiteSpace(c)){ //vai sair tudo isso.
+                advance() 
             } else if (isOperator(c)) {
                 idn = c
                 operador: do{
@@ -60,6 +63,7 @@ module.exports = {
                 }while (!isWhiteSpace(c)) 
 
 
+                //vai ficar, mas será mudado para expressoes regulares e colocado em outro arquivo.
                 if(idn == "+"){ 
                     addToken("mais",idn)
                     advance()
