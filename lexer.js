@@ -2,32 +2,39 @@
 
 module.exports = {
     
-    lex : function (input){
+    lex : function (inputString){
+
+        /*as duas linhas abaixo removem todos os espacos em branco contidos na 
+         * string inputString.
+         * Ex. 
+         * inputString = ' a     casa é b onita '
+         * ao final, teremos em arrayPalavras : ['a', 'casa', 'é', 'b', 'onita']
+         * um array livre de espaços e apenas com as palavras
+         * assim, a comparação isWhitSpace será desnecessária
+         */
+        const arrayAux = inputString.split(/\s+/g);
+        const arrayPalavras = arrayAux.filter(word => word.length > 0);
+        //console.log(arrayPalavras);//teste
+        
         var tokens = []
         var c
         var i = 0
 
-        var isOperator = function(c){
-            return /[+-*\/\^%=()<>,.!{}]/.test(c)
-        }
+        //função que retorna true se c for um operador //Falta consertar a Expressão regular
+        const isOperator = c => /[-+*\/^%=()<>,.!{}]/.test(c);
     
-        var isDigit = function(c){
-            return /[0-9]/.test(c)
-        }
-    
-        var isWhiteSpace = function(c){
-            return /[\s]/.test(c)
-        }
+        //função que retorna true se c for um digito de 0 a 9
+        const isDigit = c => /[0-9]/.test(c);
+        
+        //função que retorna true se c for um espaço em branco
+        const isWhiteSpace = c => /[\s]/.test(c);
 
-        var isString = function(c){
-            return typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c) 
-        }
+        //função que retorna algum caralho(vou analisar melhor)
+        const isString = c => typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c); 
 
-        var advance = function () { 
-            return c = input[++i] 
-        }
+        const advance = () => c = inputString[++i]; 
 
-        var addToken = function (type, value) {
+        const addToken = function (type, value) {
             if(value == ""){
                 return
             }
@@ -37,8 +44,8 @@ module.exports = {
             })
         }
 
-        while (i < input.length) {
-            c = input[i];
+        while (i < inputString.length) {
+            c = inputString[i];
 
             if (isWhiteSpace(c)){
                 advance()
