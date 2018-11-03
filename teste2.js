@@ -1,22 +1,28 @@
 //apenas para testes
 
-const texto = ['a+1','==','c']
+const texto = ' jamastring   text = "abc 145  4"'
+const arrayAux = []
+let acumuladorPalavra = '';   
 
-const tokens = [{type: 'mais', value: '+'},{type: 'plus', value: '++'}]
-
-const isIgual = (c, c2) => /=/.test(c) && /[^=]/.test(c2) ? {type: 'igual', value: c} : false;
-const isComparacao = (c, c2) => /=/.test(c) && /=/.test(c2) ? {type: 'comparacao', value: c.concat(c2)} : false;
-
-texto.forEach((palavra, index, array)=>{
-    
-    for(let i = 0; i < palavra.length; i++){
+for(let i = 0; i < texto.length; i++){
+     
+    if(texto[i] != /\"/){
+        if(texto[i] === /\s/){
+           
+        } else {
+            do {
+                acumuladorPalavra += texto[i]
+                i++;    
+            } while (texto[i] =! /\"/);
+        }
         
+    } else {
+
     }
-    
-});
 
-let tamanho = tokens[tokens.length-1].value.length
-console.log(tamanho);
+}
+arrayAux = texto.split(/\s+/g);
+console.log(arrayAux);
+const arrayPalavras = arrayAux.filter(word => word.length > 0);
 
-
-
+console.log(arrayPalavras);
