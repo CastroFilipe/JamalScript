@@ -9,6 +9,10 @@ const isDigit = c => /[0-9]/.test(c);
 //função que retorna true ou false
 const isString = c => typeof c == "string" && !isOperator(c) && !isDigit(c); 
 
+const qualString = (palavra) => {
+	return isPalavraReservada(palavra) || isDesconhecido(palavra)
+}
+
 //retorna um objeto com typo e valor do operador. OBS: a ordem em return é importante.
 const qualOperador = (c,c2) => {
      return isAdicionar1(c,c2) || isSubtrair1(c,c2) || isMais(c) || isMenos(c) || 
@@ -69,6 +73,32 @@ const isDesconhecido = (c) => {
     return {type: "desconhecido", value: c}
 };
 
+//metodos para identificar qual a string:
+const isPalavraReservada = (palavra) =>{
+    return /^int$/.test(palavra) ? {type: "int", value: palavra} :
+    /^jamastring$/i.test(palavra) ? {type: "jamastring", value: palavra} :
+    /^float$/i.test(palavra) ? {type: "float", value: palavra} :
+    /^bool$/i.test(palavra) ? {type: "bool", value: palavra} : 
+    /^func$/i.test(palavra) ? {type: "func", value: palavra} : 
+    /^if$/i.test(palavra) ? {type: "if", value: palavra} : 
+
+    /^else$/i.test(palavra) ? {type: "else", value: palavra} : 
+
+    /^for$/i.test(palavra) ? {type: "for", value: palavra} : 
+
+    /^while$/i.test(palavra) ? {type: "while", value: palavra} : 
+
+    /^jamal$/i.test(palavra) ? {type: "jamal", value: palavra} :
+    /^print$/i.test(palavra) ? {type: "func_print", value: palavra} :
+    /^println$/i.test(palavra) ? {type: "func_println", value: palavra} :
+    /^read$/i.test(palavra) ? {type: "func_read", value: palavra} :
+    /^readln$/i.test(palavra) ? {type: "func_readln", value: palavra} :
+    /^close$/i.test(palavra) ? {type: "func_close", value: palavra} :
+    /^pause$/i.test(palavra) ? {type: "func_pause", value: palavra} :
+    /\W/gi.test(palavra) ? {type: "Nao_suportado", value: palavra} : 
+    /\w/i.test(palavra) ? {type: "identifier", value: palavra} : false
+
+}
 
 //exportar
-module.exports = {isOperator, isDigit, isString, qualOperador, isPonto}
+module.exports = {isOperator, isDigit, isString, qualOperador, isPonto, qualString}

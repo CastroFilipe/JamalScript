@@ -1,6 +1,6 @@
 const automatos = require('./automatos.js');
 
-//funcao que é exportada e está visível a outros modulos.
+//funcao que é exportada e está visível a outros modulos. Retorna o array de tokens
 function lex(inputString) {
 
     let tokens = [];
@@ -9,7 +9,6 @@ function lex(inputString) {
      * string inputString.
      * Ex: inputString = 'int abc=         3;'
      * ao final, teremos em arrayPalavras: [ 'int', 'abc=', '3;' ]
-     * um array livre de espaços e apenas com as palavras 
     */
     const arrayAux = inputString.split(/\s+/g);
     const arrayPalavras = arrayAux.filter(word => word.length > 0);
@@ -49,7 +48,7 @@ function lex(inputString) {
                 } else{
                     tokens.push({type:'number', value: acumuladorDigitos});
                 }
-                i--;//necessário para o i++ do for não engolir um caractere
+                i--;//necessário para o i++ do laço for não engolir um caractere
 
             } else if(automatos.isString(palavra[i])){
                 let acumuladorString = '';
@@ -58,12 +57,15 @@ function lex(inputString) {
                     i++;
                 } while(automatos.isString(palavra[i]))
                 i--;//necessário para o i++ do for não engolir um caractere
-                tokens.push({type:'string', value: acumuladorString});
+
+                //metodo qual string?
+                tokens.push(automatos.qualString(acumuladorString));
+        
             }
         }
              
     });
-
+    tokens.push("end");
     return tokens;
 }//fim lex
 
