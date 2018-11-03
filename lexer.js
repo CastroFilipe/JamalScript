@@ -1,17 +1,50 @@
 const automatos = require('./automatos.js');
 
+
+    /* funcao removerEspacos que remove todos os espacos em branco contidos 
+     * na string inputString com exceçao dos espaços dentro de " ".
+     * Ex: inputString = 'string       abc=       "ola amigo";'
+     * ao final, retorna: [ 'string', 'abc=', '"ola amigo"', ';' ]
+     */
+const removerEspacos = (texto)=>{
+    const arrayAux = []
+
+    for(let i = 0; i < texto.length; i++){
+        let acumuladorPalavra = '';   
+    
+        if(/\s/.test(texto[i])){
+            //não faz nada só espera o for acrescentar i++ para pular o espaco
+        } else if(/"/.test(texto[i])){
+    
+            do {//vai acumular tudo que estiver entre " " inclusive espacos
+                acumuladorPalavra += texto[i]
+                i++;    
+            } while (!/"/.test(texto[i]) && i<texto.length);
+            
+            if(/"/.test(texto[i])){
+                acumuladorPalavra += texto[i];
+            }
+            
+            arrayAux.push(acumuladorPalavra);
+    
+        } else {
+            do {
+                acumuladorPalavra += texto[i]
+                i++;    
+            } while (!/"/.test(texto[i]) && !/\s/.test(texto[i]) && i<texto.length);
+            arrayAux.push(acumuladorPalavra);
+        }
+    }
+
+    return arrayAux;
+}
+
 //funcao que é exportada e está visível a outros modulos. Retorna o array de tokens
 function lex(inputString) {
 
     let tokens = [];
 
-    /* As duas linhas abaixo removem todos os espacos em branco contidos na 
-     * string inputString.
-     * Ex: inputString = 'int abc=         3;'
-     * ao final, teremos em arrayPalavras: [ 'int', 'abc=', '3;' ]
-    */
-    const arrayAux = inputString.split(/\s+/g);
-    const arrayPalavras = arrayAux.filter(word => word.length > 0);
+    const arrayPalavras = removerEspacos(inputString);
 
     //percorre todas as palavras do array e chama a funcao em cada palavra
     arrayPalavras.forEach((palavra, indiceNoArray, arrayPercorrido) =>{
@@ -20,7 +53,11 @@ function lex(inputString) {
         //for que percorer cada caractere da palavra
         for(let i = 0; i < palavra.length; i++){
 
-            if(automatos.isOperator(palavra[i])){
+            if(automatos.isAspas(palavra[0])){//se for uma jamastring_text, já adiciona a palavra inteira e vai para a proxima
+                tokens.push(automatos.qualString(palavra));
+                //tokens.push({type: "jamastring_texto", value: palavra});
+                i = palavra.length;
+            } else if(automatos.isOperator(palavra[i])){
 
                 //retorna um objeto {type: type, vaule: c}
                 tokens.push(automatos.qualOperador(palavra[i],palavra[i+1]));

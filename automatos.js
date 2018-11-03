@@ -10,7 +10,7 @@ const isDigit = c => /[0-9]/.test(c);
 const isString = c => typeof c == "string" && !isOperator(c) && !isDigit(c); 
 
 const qualString = (palavra) => {
-    return isPalavraReservada(palavra) || isJamalstring(palavra) || 
+    return isPalavraReservada(palavra) || isJamalstringText(palavra) || 
     isIdentifier(palavra) || isDesconhecido(palavra)
 }
 
@@ -69,9 +69,11 @@ const isPontoVirgula = c => /;/.test(c) ? {type: "ponto_virgula", value: c} : fa
 
 const isMod = c => /%/.test(c) ? {type: "mod", value: c} : false;
 
+const isAspas = c => /"/.test(c) ? true : false;
+
 //se algum caractere ainda não foi mapeado.
 const isDesconhecido = (c) => {
-    return  /\W/gi.test(palavra) ? {type: "Nao_suportado", value: palavra} : {type: "desconhecido", value: c}
+    return  /\W/gi.test(c) ? {type: "Nao_suportado", value: c} : {type: "desconhecido", value: c}
 };
 
 //metodos para identificar qual a string:
@@ -99,11 +101,11 @@ const isPalavraReservada = (palavra) =>{
 
 }
 
-const isJamalstring = (palavra) =>{
+const isJamalstringText = (palavra) =>{
     return /^".*"$/i.test(palavra) ? {type: "jamalstring_text", value: palavra} : false
 }
 
-const isIdentifier = (palavra) => /\w/i.test(palavra) ? {type: "identifier", value: palavra} : false;
+const isIdentifier = (palavra) => !/\W/i.test(palavra) ? {type: "identifier", value: palavra} : false;
 
 //exportar
-module.exports = {isOperator, isDigit, isString, qualOperador, isPonto, qualString}
+module.exports = {isOperator, isDigit, isString, qualOperador, isPonto, qualString, isAspas}
