@@ -1,4 +1,4 @@
-
+const automatos = require('./automatos.js'); //necessário para usar os metodos reconhecedores
 
 module.exports = {
     
@@ -7,10 +7,10 @@ module.exports = {
         /* As duas linhas abaixo removem todos os espacos em branco contidos na 
          * string inputString.
          * Ex: 
-         * inputString = ' a     casa é b onita '
-         * ao final, teremos em arrayPalavras : ['a', 'casa', 'é', 'b', 'onita']
+         * inputString = 'int abc   = 3;  int abc=2';
+         * ao final, teremos em arrayPalavras : [ 'int', 'abc', '=', '3;', 'int', 'abc=2;' ]
          * um array livre de espaços e apenas com as palavras
-         * assim, a comparação isWhitSpace() e o advanced() serão desnecessários
+         * 
          */
         const arrayAux = inputString.split(/\s+/g);
         const arrayPalavras = arrayAux.filter(word => word.length > 0);
@@ -20,17 +20,29 @@ module.exports = {
         let c
         let i = 0
 
-        //função que retorna true se c for um operador //Falta adicionar alguns simbolos ao array tokens
-        const isOperator = c => /[-+*\/^%=()<>,.!{}]/.test(c);
-    
-        //função que retorna true se c for um digito de 0 a 9
-        const isDigit = c => /[0-9]/.test(c);
-        
-        //função que retorna true se c for um espaço em branco
-        const isWhiteSpace = c => /[\s]/.test(c);
+        //percorre todas as palavras do array e chama a funcao em cada palavra
+        arrayPalavras.forEach((palavra, indiceNoArray, arrayPercorrido) =>{
+            
+            //percorer cada caractere da palavra
+            for(let i in palavra){
+                if(automatos.isOperator(palavra[i])){
 
-        //função que retorna algum caralho(vou analisar melhor)
-        const isString = c => typeof c == "string" && !isOperator(c) && !isWhiteSpace(c) && !isDigit(c); 
+                } else if(automatos.isDigit(palavra[i])){
+    
+                } else if(automatos.isString(palavra[i])){
+    
+                }
+            }
+
+            
+            
+        });
+
+        
+
+
+
+
 
         //funcao advanced. Quero remover essa funcao pois usaremos alguma funcao presente em Array para percorrer.
         const advance = () => c = inputString[++i]; 
@@ -41,6 +53,7 @@ module.exports = {
             if(value == ""){
                 return
             }
+            //adiciona um objeto na ultima posicao do array tokens.
             tokens.push({
                 type: type,
                 value: value
