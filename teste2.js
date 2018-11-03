@@ -1,3 +1,5 @@
+//apenas para testes
+
 const texto = ['a+1','==','c']
 
 const tokens = [{type: 'mais', value: '+'},{type: 'plus', value: '++'}]

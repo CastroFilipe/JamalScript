@@ -1,47 +1,13 @@
-const automatos = require('./automatos.js'); //necessário para usar os metodos reconhecedores
-
+//não está mais em uso. vai ser excluido depois 
+//falta implementar algumas coisas daqui no outro lex.
 module.exports = {
     
     lex : function (inputString){
 
-        /* As duas linhas abaixo removem todos os espacos em branco contidos na 
-         * string inputString.
-         * Ex: 
-         * inputString = 'int abc   = 3;  int abc=2';
-         * ao final, teremos em arrayPalavras : [ 'int', 'abc', '=', '3;', 'int', 'abc=2;' ]
-         * um array livre de espaços e apenas com as palavras
-         * 
-         */
-        const arrayAux = inputString.split(/\s+/g);
-        const arrayPalavras = arrayAux.filter(word => word.length > 0);
-        //console.log(arrayPalavras);//teste
         
         let tokens = []
         let c
         let i = 0
-
-        //percorre todas as palavras do array e chama a funcao em cada palavra
-        arrayPalavras.forEach((palavra, indiceNoArray, arrayPercorrido) =>{
-            
-            //percorer cada caractere da palavra
-            for(let i in palavra){
-                if(automatos.isOperator(palavra[i])){
-                    
-                } else if(automatos.isDigit(palavra[i])){
-    
-                } else if(automatos.isString(palavra[i])){
-    
-                }
-            }
-
-            
-            
-        });
-
-        
-
-
-
 
 
         //funcao advanced. Quero remover essa funcao pois usaremos alguma funcao presente em Array para percorrer.

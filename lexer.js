@@ -20,7 +20,6 @@ function lex(inputString) {
 
         //for que percorer cada caractere da palavra
         for(let i = 0; i < palavra.length; i++){
-            let aux = i;
 
             if(automatos.isOperator(palavra[i])){
 
@@ -38,9 +37,19 @@ function lex(inputString) {
                     i++;
                 } while(automatos.isDigit(palavra[i]))
 
-                i--;//necessário para o i++ do for não engolir um caractere
+                if(automatos.isPonto(palavra[i])){
+                    
+                    do{
+                        acumuladorDigitos = acumuladorDigitos.concat(palavra[i])
+                        i++;
+                    } while(automatos.isDigit(palavra[i]))
 
-                tokens.push({type:'number', value: acumuladorDigitos});
+                    tokens.push({type:'flutuante', value: acumuladorDigitos});
+
+                } else{
+                    tokens.push({type:'number', value: acumuladorDigitos});
+                }
+                i--;//necessário para o i++ do for não engolir um caractere
 
             } else if(automatos.isString(palavra[i])){
                 let acumuladorString = '';

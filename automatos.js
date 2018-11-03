@@ -64,9 +64,6 @@ const isPontoVirgula = c => /;/.test(c) ? {type: "ponto_virgula", value: c} : fa
 
 const isMod = c => /%/.test(c) ? {type: "mod", value: c} : false;
 
-
-
-
 //se algum caractere ainda não foi mapeado.
 const isDesconhecido = (c) => {
     return {type: "desconhecido", value: c}
@@ -74,4 +71,4 @@ const isDesconhecido = (c) => {
 
 
 //exportar
-module.exports = {isOperator, isDigit, isString, qualOperador}
+module.exports = {isOperator, isDigit, isString, qualOperador, isPonto}
