@@ -19,3 +19,4 @@ ponto_virgula, virgula, ponto.
 bugs a corrigir encontrados:
 - reconhecer uma string não fechada " ola mundo (falta o " final). Não vai apresentar erro, porém diz que é um identifier. Porém isso não é tão importante para um projeto do cesupa;
 
+- Falta implementar a potencia ^. (lembrar mais tarde)

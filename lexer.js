@@ -48,7 +48,7 @@ function lex(inputString) {
     const arrayPalavras = removerEspacos(inputString);
 
     //percorre todas as palavras do array e chama a funcao em cada palavra
-    arrayPalavras.forEach((palavra, indiceNoArray, arrayPercorrido) =>{
+    arrayPalavras.forEach((palavra) =>{
         //o objetivo dessa funcao é percorrer cada caractere de cada palavra do array e definir sua classe
 
         //for que percorer cada caractere da palavra
