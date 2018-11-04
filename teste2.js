@@ -27,8 +27,9 @@ const removerEspacos = (texto)=>{
             do {
                 acumuladorPalavra += texto[i]
                 i++;    
-            } while (!/"/.test(texto[i]) && !/\s/.test(texto[i]) && i<texto.length);
+            } while (!(/"/.test(texto[i])) && !(/\s/.test(texto[i])) && i<texto.length);
             arrayAux.push(acumuladorPalavra);
+            i--;
         }
     }
 
@@ -37,9 +38,8 @@ const removerEspacos = (texto)=>{
 
 function lex(){
 
-    const texto = `func pessoa () {
-        println("oi")
-     }`
+    const texto = 'ln(" oi ")'
+    console.log(texto.length)
     let novoarray = removerEspacos(texto);
     console.log(novoarray);
 }

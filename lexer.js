@@ -33,6 +33,7 @@ const removerEspacos = (texto)=>{
                 i++;    
             } while (!/"/.test(texto[i]) && !/\s/.test(texto[i]) && i<texto.length);
             arrayAux.push(acumuladorPalavra);
+            i--;
         }
     }
 
@@ -68,12 +69,12 @@ function lex(inputString) {
             } else if(automatos.isDigit(palavra[i])){
                 let acumuladorDigitos = '';
 
-                do{
+                do{//reconhece números inteiros
                     acumuladorDigitos = acumuladorDigitos.concat(palavra[i])
                     i++;
                 } while(automatos.isDigit(palavra[i]))
 
-                if(automatos.isPonto(palavra[i])){
+                if(automatos.isPonto(palavra[i])){//necessário para reconhecer numeros com casa decimal
                     
                     do{
                         acumuladorDigitos = acumuladorDigitos.concat(palavra[i])
@@ -95,7 +96,7 @@ function lex(inputString) {
                 } while(automatos.isString(palavra[i]))
                 i--;//necessário para o i++ do for não engolir um caractere
 
-                //metodo qual string?
+                //metodo qual string? retorna um objeto {type, valor} com o tipo da string passada como parametro
                 tokens.push(automatos.qualString(acumuladorString));
         
             }
