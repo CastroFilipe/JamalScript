@@ -108,4 +108,4 @@ const isJamalstringText = (palavra) =>{
 const isIdentifier = (palavra) => !/\W/i.test(palavra) ? {type: "identifier", value: palavra} : false;
 
 //exportar
-module.exports = {isOperator, isDigit, isString, qualOperador, isPonto, qualString, isAspas}
+module.exports = {isOperator, isDigit, isString, qualOperador, isPonto, qualString, isAspas, isPalavraReservada}
